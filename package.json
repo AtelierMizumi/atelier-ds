@@ -1,0 +1,23 @@
+{
+  "name": "@ateliermizumi/atelier-ds",
+  "version": "0.1.0",
+  "description": "Shared design system for Atelier sites: tokens, base CSS, components, motion, input (keyboard + gamepad), water background.",
+  "type": "module",
+  "license": "MIT",
+  "files": ["dist", "DESIGN.md", "README.md"],
+  "exports": {
+    ".": "./dist/atelier-ds.css",
+    "./css": "./dist/atelier-ds.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./input": "./dist/js/input.js",
+    "./motion": "./dist/js/motion.js",
+    "./water": "./dist/js/water.js",
+    "./hud": "./dist/js/hud.js",
+    "./color": "./dist/js/color.js"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/",
+    "vendor": "bash scripts/vendor.sh"
+  }
+}

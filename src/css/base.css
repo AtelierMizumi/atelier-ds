@@ -1,0 +1,59 @@
+/* Atelier DS base: element defaults every page gets. Everything reads tokens; no literal colors. */
+@layer ds-base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--ds-bg); color-scheme: dark; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  /* body stays transparent so a fixed `.ds-sea` (z-index -1) is not painted over; html carries the ground color */
+  body {
+    margin: 0; min-height: 100vh; background: transparent; color: var(--ds-text);
+    font: 400 var(--ds-size-body)/1.6 var(--ds-font-body);
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  [hidden] { display: none !important; }
+  img, svg, video, canvas { max-width: 100%; }
+  img, video { height: auto; display: block; }
+
+  /* Headings: display face, italic, tight. h1/h2 lean with the shared skew. */
+  h1, h2, h3, h4 { font-family: var(--ds-font-display); font-weight: 900; font-style: italic; line-height: .95;
+    color: var(--ds-text); letter-spacing: -.01em; text-wrap: balance; margin: 0; }
+  h1 { font-size: var(--ds-size-h1); margin-block: 0 var(--ds-space-4); }
+  h2 { font-size: var(--ds-size-h2); margin-block: var(--ds-space-8) var(--ds-space-4); }
+  h3 { font-size: var(--ds-size-h3); font-weight: 800; margin-block: var(--ds-space-6) var(--ds-space-3); }
+  h4 { font-size: var(--ds-size-body); font-weight: 800; margin-block: var(--ds-space-5) var(--ds-space-2); }
+
+  p, ul, ol, dl, blockquote, figure, table, pre { margin-block: 0 var(--ds-space-4); }
+  p, li { max-width: var(--ds-layout-measure); }
+  small { font-size: var(--ds-size-small); }
+
+  a { color: var(--ds-link); text-decoration-thickness: 1.5px; text-underline-offset: .18em; }
+  a:hover { text-decoration-thickness: 3px; }
+
+  :focus-visible { outline: 3px solid var(--ds-light); outline-offset: 3px; }
+  ::selection { background: var(--ds-light); color: var(--ds-on-light); }
+
+  strong, b { font-weight: 700; color: var(--ds-text); }
+  hr { border: 0; height: 2px; background: var(--ds-bg-raised); margin-block: var(--ds-space-7); }
+
+  code, kbd, samp, pre { font-family: var(--ds-font-mono); font-size: .9em; }
+  :not(pre) > code { background: var(--ds-bg-raised); color: var(--ds-text-2); padding: .1em .35em; }
+  pre { background: var(--ds-bg-raised); color: var(--ds-text-2); padding: var(--ds-space-4) var(--ds-space-5);
+    overflow-x: auto; line-height: 1.55; border-left: 3px solid var(--ds-light); }
+
+  blockquote { margin-inline: 0; padding: var(--ds-space-2) 0 var(--ds-space-2) var(--ds-space-5);
+    border-left: 3px solid var(--ds-light); color: var(--ds-text-2); font-style: italic; }
+
+  table { border-collapse: collapse; width: 100%; font-size: var(--ds-size-small); font-variant-numeric: tabular-nums; }
+  th { font: 800 italic var(--ds-size-body)/1.2 var(--ds-font-display); text-align: left; color: var(--ds-light);
+    letter-spacing: .02em; padding: var(--ds-space-2) var(--ds-space-3); border-bottom: 2px solid var(--ds-light); }
+  td { padding: var(--ds-space-2) var(--ds-space-3); border-bottom: 1px solid color-mix(in srgb, var(--ds-text-3) 25%, transparent); vertical-align: top; }
+
+  figure { margin-inline: 0; }
+  figcaption { color: var(--ds-text-3); font-size: var(--ds-size-small); padding-top: var(--ds-space-2); }
+
+  input, select, textarea, button { font: inherit; color: inherit; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important;
+      transition-duration: 1ms !important; }
+  }
+}

@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" data-ds-theme="atelier">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atelier DS Styleguide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,800;1,900&family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;1,600;1,800&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="dist/atelier-ds.css">
+<style>
+  /* styleguide-only layout; everything else comes from the DS */
+  .sg-section { padding-block: var(--ds-space-7); border-top: 1px solid color-mix(in srgb, var(--ds-text-3) 20%, transparent); }
+  .sg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--ds-space-4); }
+  .sg-sw { display: grid; gap: 6px; font: 400 12px/1.4 var(--ds-font-mono); }
+  .sg-sw i { display: block; height: 64px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ds-text-3) 30%, transparent); }
+  .sg-row { display: flex; flex-wrap: wrap; gap: var(--ds-space-4); align-items: center; }
+  .sg-stage { position: relative; height: 460px; overflow: hidden; isolation: isolate; }
+  .sg-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sg-stage .ds-menu { position: absolute; left: 8%; top: 16%; }
+  .sg-stage .ds-prompts { position: absolute; right: 20px; bottom: 18px; }
+  .sg-stage .sg-desc { position: absolute; right: 20px; bottom: 64px; text-align: right; font: 800 italic 28px/1 var(--ds-font-body); text-shadow: var(--ds-shape-hard-shadow) var(--ds-shadow); }
+  .sg-stage .sg-pause { position: absolute; left: 16px; bottom: 16px; z-index: var(--ds-z-util); }
+  .sg-pass { color: var(--ds-good); } .sg-fail { color: var(--ds-bad); }
+  .sg-fly { width: 120px; height: 120px; }
+  .sg-wipe-box { height: 160px; background: var(--ds-navy); display: grid; place-items: center; overflow: hidden; }
+  .sg-sweep-host { position: relative; height: 240px; overflow: hidden; background: var(--ds-deep); }
+  .sg-sweep-host .sg-cover { position: absolute; inset: 0; background: var(--ds-paper); color: var(--ds-ink); display: grid; place-items: center;
+    font: 900 italic 48px var(--ds-font-display); }
+  .sg-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--ds-space-6); }
+</style>
+</head>
+<body>
+<a class="ds-skip" href="#main">Skip to content</a>
+<div class="ds-sea" aria-hidden="true"></div>
+
+<header class="ds-top">
+  <a class="ds-brand" href="#main">Atelier<b>DS</b></a>
+  <nav aria-label="Sections"><a href="#color" aria-current="page">Color</a><a href="#type">Type</a><a href="#components">Components</a><a href="#motion">Motion</a></nav>
+  <div class="ds-hud" id="hud" aria-label="Today">
+    <span data-hud="clock"></span>
+    <div><span class="ds-hud__date" data-hud="date"></span> <span class="ds-hud__day" data-hud="day"></span>
+      <span class="ds-hud__meta"><span data-hud="time"></span> · <span data-hud="phase"></span></span></div>
+    <span data-hud="moon"></span>
+  </div>
+</header>
+
+<main id="main" class="ds-wrap">
+  <section class="sg-section">
+    <span class="ds-kicker" id="ver">atelier-ds</span>
+    <h1>Atelier design system</h1>
+    <p class="ds-lede">Tokens, base styles, components, motion and console-style input shared by every Atelier site. Switch the theme to see a product override.</p>
+    <div class="sg-row">
+      <button class="ds-btn" id="themeBtn" type="button" aria-pressed="false">Theme: atelier</button>
+      <span class="ds-chip">v0.1.0</span><span class="ds-chip ds-chip--ghost">MIT</span>
+    </div>
+  </section>
+
+  <section class="sg-section" id="color">
+    <h2 class="ds-slab">Color</h2>
+    <div class="sg-grid" id="swatches"></div>
+    <h3>Contrast, live</h3>
+    <p class="ds-sub">Computed in the browser from the current theme with the same pairs the tests use.</p>
+    <div class="ds-table"><table><thead><tr><th>Pair</th><th>Use</th><th>Ratio</th><th>Min</th></tr></thead><tbody id="pairs"></tbody></table></div>
+  </section>
+
+  <section class="sg-section" id="type">
+    <h2 class="ds-slab">Type</h2>
+    <p style="font: 900 italic var(--ds-size-display-l)/.9 var(--ds-font-display)">PROJECTS</p>
+    <h1>Heading 1 · Từ Arch sang CachyOS</h1>
+    <h2>Heading 2 · Backup trước khi xoá</h2>
+    <h3>Heading 3 · Subvolume layout</h3>
+    <p class="ds-lede">Lede: Six hot-swap switches and three buttons, drawn by hand in KiCad.</p>
+    <p>Body: Mình chuyển từ Arch sang CachyOS vì ổ root luôn đầy. Đoạn văn giữ tối đa khoảng 68 ký tự mỗi dòng để mắt không phải đi quá xa. <a href="#type">A link</a> and <code>inline code</code>.</p>
+    <p class="ds-sub">Secondary text in mist. <small>Small meta text.</small></p>
+    <pre><code>btrfs subvolume create /mnt/@home   # code block</code></pre>
+    <blockquote>A short quote, two lines at most, with its source.</blockquote>
+  </section>
+
+  <section class="sg-section" id="components">
+    <h2 class="ds-slab">Components</h2>
+
+    <h3>Hero menu over water</h3>
+    <div class="sg-stage ds-cut">
+      <canvas id="water" aria-hidden="true"></canvas>
+      <div class="ds-scrim" style="--sx:30%;--sy:45%"></div>
+      <canvas id="bubbles" aria-hidden="true" style="z-index:var(--ds-z-fx);pointer-events:none"></canvas>
+      <nav class="ds-menu ds-menu--tilt" aria-label="Demo menu"><ul id="menu"></ul></nav>
+      <div class="sg-desc" id="desc" aria-live="polite"></div>
+      <div class="ds-prompts" id="prompts" aria-hidden="true"></div>
+      <button class="ds-btn sg-pause" id="pause" type="button"></button>
+    </div>
+    <p class="ds-sub">Use ↑↓, W/S, 1–6, Enter, Esc, or a gamepad. The prompts follow the device you used last.</p>
+
+    <div class="sg-two">
+      <div>
+        <h3>Buttons</h3>
+        <div class="sg-row">
+          <button class="ds-btn" type="button">Open board</button>
+          <button class="ds-btn ds-btn--light" type="button">Download</button>
+          <button class="ds-btn" type="button" aria-pressed="true">Pressed</button>
+          <i class="ds-btn-round" id="r1"></i><i class="ds-btn-round" id="r2"></i><i class="ds-btn-round" id="r3"></i>
+        </div>
+        <h3>Chips and status</h3>
+        <div class="sg-row"><a class="ds-chip" href="#components">linux</a><a class="ds-chip" href="#components">keyboard</a><span class="ds-chip ds-chip--ghost">draft</span></div>
+        <ul class="ds-ledger" style="margin-top:var(--ds-space-4)">
+          <li><b class="ds-status ds-status--good">OK</b><span>ERC 0, DRC 0 on rev 1.</span></li>
+          <li><b class="ds-status ds-status--warn">CHECK</b><span>Fuse rating not measured.</span></li>
+          <li><b class="ds-status ds-status--bad">FIX</b><span>LED chain the firmware cannot drive.</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Specs</h3>
+        <dl class="ds-specs"><div><dt>MCU</dt><dd>RP2040</dd></div><div><dt>Keys</dt><dd>6 + 3</dd></div><div><dt>Poll</dt><dd>8 kHz</dd></div></dl>
+        <h3>Callouts</h3>
+        <div class="ds-callout" data-label="Info"><p>Snapshots are tagged by data class.</p></div>
+        <div class="ds-callout ds-callout--tip" data-label="Tip" style="margin-top:12px"><p>Restore narrow, back up wide.</p></div>
+        <div class="ds-callout ds-callout--warn" data-label="Warning" style="margin-top:12px"><p>This wipes the disk.</p></div>
+      </div>
+    </div>
+
+    <div class="sg-two">
+      <div>
+        <h3>Plate and paper</h3>
+        <div class="ds-plate"><strong>Plate</strong> keeps text readable over busy water.</div>
+        <p style="margin-top:12px"><span class="ds-paper" style="display:inline-block"><strong style="color:var(--ds-ink)">14 bài</strong> journal · 4 dự án</span></p>
+      </div>
+      <div>
+        <h3>Form field</h3>
+        <div class="ds-field"><label for="q">Search posts</label><input id="q" type="search" placeholder="btrfs, osu!, KiCad"></div>
+        <div class="ds-field" style="margin-top:12px"><label for="e">Email</label><input id="e" aria-invalid="true" value="not-an-email"><span class="ds-error">Enter an address like name@example.com.</span></div>
+      </div>
+    </div>
+
+    <div class="sg-two">
+      <nav class="ds-toc" aria-label="On this page"><ol><li><a href="#color">Color</a></li><li><a href="#type" aria-current="true">Type</a></li><li><a href="#components">Components</a></li></ol></nav>
+      <div class="ds-pager"><a href="#type"><small>Previous</small>Window manager in TypeScript</a><a href="#motion"><small>Next</small>Arch → CachyOS</a></div>
+    </div>
+  </section>
+
+  <section class="sg-section" id="motion">
+    <h2 class="ds-slab">Motion</h2>
+    <div class="sg-two">
+      <div>
+        <h3>Cascade and press</h3>
+        <div class="sg-row"><button class="ds-btn" id="doCascade" type="button">Cascade</button><button class="ds-btn" id="doPress" type="button">Press</button></div>
+        <ul class="ds-ledger" id="cascadeList" style="margin-top:12px"><li><b class="ds-status">1</b><span>First</span></li><li><b class="ds-status">2</b><span>Second</span></li><li><b class="ds-status">3</b><span>Third</span></li></ul>
+      </div>
+      <div>
+        <h3>Slab wipe</h3>
+        <button class="ds-btn" id="doWipe" type="button">Wipe</button>
+        <div class="sg-wipe-box ds-wipe" id="wipeBox" style="margin-top:12px"><span class="ds-hud__date" id="wipeNum">REV 2</span></div>
+      </div>
+    </div>
+    <div class="sg-two">
+      <div>
+        <h3>Sweep reveal</h3>
+        <button class="ds-btn" id="doSweep" type="button">Sweep</button>
+        <div class="sg-sweep-host" id="sweepHost" style="margin-top:12px"><div class="sg-cover" id="cover">LOADING</div><div class="ds-sweep" id="sweep"><i></i></div></div>
+      </div>
+      <div>
+        <h3>Shared element (fly to HUD clock)</h3>
+        <button class="ds-btn" id="doFly" type="button">Fly</button>
+        <div style="margin-top:12px" id="flyHost"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="ds-wrap" style="padding-block: var(--ds-space-7)"><p class="ds-sub">atelier-ds · source of truth: DESIGN.md</p></footer>
+
+<script type="module">
+import { contrast, resolveTheme } from './dist/js/color.js';
+import { createNavigator, PROMPTS } from './dist/js/input.js';
+import { mountHud, CLOCK_SVG } from './dist/js/hud.js';
+import { createWater } from './dist/js/water.js';
+import { cascade, press, wipe, sweepReveal, flyTo } from './dist/js/motion.js';
+
+const tokens = await (await fetch('./dist/tokens.json')).json();
+document.getElementById('ver').textContent = `atelier-ds ${tokens.version}`;
+mountHud(document.getElementById('hud'));
+
+/* color + contrast */
+const root = document.documentElement;
+function renderColor() {
+  const theme = root.dataset.dsTheme, c = resolveTheme(tokens, theme);
+  const sw = document.getElementById('swatches'); sw.replaceChildren();
+  for (const [k, v] of Object.entries(c)) {
+    const d = document.createElement('div'); d.className = 'sg-sw';
+    const i = document.createElement('i'); i.style.background = `var(--ds-${k})`;
+    const s = document.createElement('span'); s.textContent = `${k} ${v}`;
+    d.append(i, s); sw.append(d);
+  }
+  const tb = document.getElementById('pairs'); tb.replaceChildren();
+  for (const p of tokens.contrast.pairs) {
+    const r = contrast(c[p.fg], c[p.bg]), tr = document.createElement('tr');
+    for (const [txt, cls] of [[`${p.fg} on ${p.bg}`], [p.use], [r.toFixed(2), r >= p.min ? 'sg-pass' : 'sg-fail'], [String(p.min)]]) {
+      const td = document.createElement('td'); td.textContent = txt; if (cls) td.className = cls; tr.append(td);
+    }
+    tb.append(tr);
+  }
+}
+renderColor();
+document.getElementById('themeBtn').addEventListener('click', (e) => {
+  const next = root.dataset.dsTheme === 'atelier' ? 'sixk' : 'atelier';
+  root.dataset.dsTheme = next; e.currentTarget.textContent = `Theme: ${next}`;
+  e.currentTarget.setAttribute('aria-pressed', String(next !== 'atelier')); renderColor();
+});
+
+/* round buttons */
+[['r1', PROMPTS.kb.nav], ['r2', PROMPTS.xbox.confirm], ['r3', PROMPTS.ps.back]].forEach(([id, svg]) => { document.getElementById(id).innerHTML = svg; });
+
+/* hero menu demo */
+const items = [['Projects', 'Xem dự án'], ['Journal', 'Đọc bài mới'], ['Archive', 'Mọi bài theo năm'], ['Tags', 'Duyệt theo chủ đề'], ['About', 'Mình là ai'], ['Contact', 'Liên lạc']];
+const offs = ['0em', '.9em', '.25em', '1.3em', '.55em', '1.6em'];
+const ul = document.getElementById('menu');
+const btns = items.map(([label], i) => {
+  const li = document.createElement('li'), b = document.createElement('button');
+  b.type = 'button'; b.className = 'ds-menu__item'; b.textContent = label;
+  b.style.setProperty('--c', tokens.contrast.menuTints.values[i]); b.style.setProperty('--x', offs[i]);
+  li.append(b); ul.append(li); return b;
+});
+const desc = document.getElementById('desc');
+const nav = createNavigator({
+  items: btns,
+  onSelect: (i) => { btns.forEach((b, j) => b.classList.toggle('is-on', i === j)); desc.textContent = items[i][1]; },
+  onConfirm: (i) => press(btns[i]),
+  prompts: document.getElementById('prompts'),
+  labels: { nav: 'Chọn', confirm: 'Mở', back: 'Về' },
+});
+btns.forEach((b, i) => b.addEventListener('click', () => { nav.select(i); press(b); }));
+nav.select(0, false);
+createWater({ canvas: document.getElementById('water'), bubbles: document.getElementById('bubbles'), pauseButton: document.getElementById('pause') });
+
+/* motion demos */
+document.getElementById('doCascade').onclick = () => cascade(document.querySelectorAll('#cascadeList li'));
+document.getElementById('doPress').onclick = (e) => press(e.currentTarget);
+let rev = 2;
+document.getElementById('doWipe').onclick = () => { wipe(document.getElementById('wipeBox')); setTimeout(() => { rev = (rev + 1) % 3; document.getElementById('wipeNum').textContent = `REV ${rev}`; }, 200); };
+document.getElementById('doSweep').onclick = () => {
+  const host = document.getElementById('sweepHost'), cover = document.getElementById('cover'), r = host.getBoundingClientRect();
+  cover.hidden = false;
+  sweepReveal(cover, document.getElementById('sweep'), { cx: r.width / 2, cy: r.height / 2, fromDeg: 0 });
+};
+document.getElementById('doFly').onclick = () => {
+  const host = document.getElementById('flyHost');
+  host.innerHTML = CLOCK_SVG.replace('ds-hud__clock', 'sg-fly');
+  const el = host.firstElementChild, target = document.querySelector('#hud .ds-hud__clock');
+  flyTo(el, target, { done: () => { el.style.visibility = 'hidden'; } });
+};
+</script>
+</body>
+</html>
