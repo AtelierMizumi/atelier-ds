@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 (2026-11-18, unreleased)
+## 0.1.0 (2026-11-18)
 
 - Tokens: core colors, type scale, space, shape (tilt −9°, skew −12°), layout, motion, z-layers; semantic aliases; themes `atelier` (default) and `sixk`.
 - Contrast pairs and hero menu tints checked for every theme by `npm test`.
